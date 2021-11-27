@@ -16,4 +16,6 @@ public interface WrongQuestionsMapper {
     public int getCount(QueryInfo queryInfo);
 
     public List<String> getKinds(int id);
+
+    public int deleteById(int id);
 }

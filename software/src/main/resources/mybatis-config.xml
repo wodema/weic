@@ -25,6 +25,7 @@
     <mappers>
 <!--        <mapper resource="mapper/websiteMapper.xml" />-->
 <!--        <package name="resources.mapper"/>-->
+        <mapper resource="mapper/questionMapper.xml"/>
         <mapper resource="mapper/studentMapper.xml"/>
         <mapper resource="mapper/wrongQuestionsMapper.xml"/>
     </mappers>

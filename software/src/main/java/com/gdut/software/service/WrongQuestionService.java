@@ -24,4 +24,8 @@ public class WrongQuestionService {
     public List<String> getKinds(int id){
         return wrongQuestionsMapper.getKinds(id);
     }
+
+    public int deleteById(int id){
+        return wrongQuestionsMapper.deleteById(id);
+    }
 }

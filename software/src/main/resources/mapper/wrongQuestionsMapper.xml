@@ -40,4 +40,9 @@
     <select id="getKinds" resultType="java.lang.String">
         select distinct kind from wrongquestions where sid = #{id}
     </select>
+
+    <delete id="deleteById">
+        delete from wrongquestions where id = #{id}
+    </delete>
+
 </mapper>

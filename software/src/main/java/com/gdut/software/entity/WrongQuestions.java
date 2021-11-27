@@ -2,6 +2,7 @@ package com.gdut.software.entity;
 
 public class WrongQuestions {
     private int id;
+    private int qid;
     private int sid;
     private String question;
     private String kind;
@@ -12,6 +13,14 @@ public class WrongQuestions {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getQid() {
+        return qid;
+    }
+
+    public void setQid(int qid) {
+        this.qid = qid;
     }
 
     public int getSid() {
