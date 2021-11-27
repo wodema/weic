@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gdut.software.mapper.StudentMapper">
+
+    <resultMap id="studentMap" type="com.gdut.software.entity.Student">
+        <id property="id" column="id" />
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <collection property="wrongQuestions"
+                    ofType="com.gdut.software.entity.WrongQuestions" column="id"
+                    select="com.gdut.software.mapper.WrongQuestionsMapper.selectQuestionsBySid" />
+    </resultMap>
+
+    <!-- 添加一个学生 -->
+    <insert id="addStudent" parameterType="com.gdut.software.entity.Student">
+        insert into student
+            (name,age)
+        values(#{name},#{age})
+    </insert>
+
+    <!-- 查询学生信息 -->
+    <select id="selectStudentById" parameterType="Integer"
+            resultMap="studentMap">
+        select * from student where id = #{id}
+    </select>
+
+</mapper>
