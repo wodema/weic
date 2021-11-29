@@ -1,9 +1,14 @@
 <template>
     <div class="part" >
-    <div class="box1" ref="box1"></div>
-    <div class="box2" ref="box2"></div>
-    <div v-if="isNull">
-      <span>该学生还未有错题记录。</span>
+    <div class="box1" ref="box1">
+        <div v-if="isQuestionNull">
+            <span>该学生还未有错题记录。</span>
+        </div>
+    </div>
+    <div class="box2" ref="box2">
+        <div v-if="isScoreNull">
+            <span>该学生还未有成绩记录。</span>
+        </div>
     </div>
   </div>
 </template>
@@ -12,26 +17,27 @@
 export default {
     data(){
         return{
-            analyseInfo:[[]],
-            isNull:false,
+            isQuestionNull:false,
+            isScoreNull:false,
+            //const id = winodw.session.getItem("user").id;
+            id: 3,
         }
     },
     created(){
     },
     mounted(){
-        this.getAnalyseInf();
+        this.getAnalyseInfo();
+        this.getScoreInfo();
     },
     methods:{
-        async getAnalyseInf(){
-            //const id = winodw.session.getItem("user").id;
-            const id = 3;
-            this.$http.get("/getAnalyseInformation/"+id)
+        async getAnalyseInfo(){
+            this.$http.get("/getAnalyseInformation/"+this.id)
             .then((result) => {
                 let analyseInfo = result.data.analyseInfo;
                 console.log(analyseInfo);
                 if(analyseInfo.length > 0){
                     var charts = this.$echarts.init(this.$refs.box1);
-                    var option = {
+                    var option1 = {
                         title: {
                             text: '错题分析图表',
                             subtext: '百分比显示',
@@ -65,16 +71,55 @@ export default {
                     };
                     analyseInfo.forEach(item =>{
                         let data = {value:item.number, name:item.kind};
-                        option.series[0].data.push(data);
-                        option.legend.data.push(item.kind);
+                        option1.series[0].data.push(data);
+                        option1.legend.data.push(item.kind);
                     })
-                    charts.setOption(option);
+                    charts.setOption(option1);
                 }
                 else{
                     this.isNull = true;
                 }
             })
-        }
+        },
+        async getScoreInfo(){
+            this.$http.get("/getScoreInformation/"+this.id)
+            .then((result) => {
+                let ScoreInfo = result.data.ScoreInfo;
+                console.log(ScoreInfo);
+                if(ScoreInfo.length > 0){
+                    var ScoreCharts = this.$echarts.init(this.$refs.box2);
+                    var option2 = {
+                        title: {
+                            text: '成绩分析图表',
+                            x:'center'
+                        },
+                        xAxis: {
+                            type: "category",
+                            data: []
+                        },
+                        yAxis: {
+                            type: "value"
+                        },
+                        series: [{
+                            type: 'line',
+                            data:[],
+                            itemStyle: { normal: { label: { show: true } } }
+                        }]
+
+                    };
+                    ScoreInfo.forEach(item =>{
+                        let data = {value:item.score, name:item.kind};
+                        option2.series[0].data.push(data);
+                        option2.xAxis.data.push(item.kind);
+                    })
+                    ScoreCharts.setOption(option2);
+                }
+                else{
+                    this.isNull = true;
+                }
+            })
+        },
+
     }
 }
 </script>
@@ -85,9 +130,14 @@ export default {
     .box1{
         width: 600px;
         height: 600px;
-        position: absolute;
         margin-left: 40px;
-        top: 20%;
+        margin-top: 10%;
+    }
+    .box2{
+        width: 600px;
+        height: 600px;
+        margin-left: 100px;
+        top: 20%
     }
 }
 

@@ -4,11 +4,13 @@ import com.gdut.software.entity.QueryInfo;
 import com.gdut.software.entity.WrongQuestions;
 import com.gdut.software.mapper.WrongQuestionsMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 
+@Transactional
 @Service
 public class WrongQuestionService {
     @Resource
