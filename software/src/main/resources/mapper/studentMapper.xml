@@ -9,9 +9,9 @@
         <id property="id" column="id" />
         <result property="name" column="name"/>
         <result property="age" column="age"/>
-        <collection property="wrongQuestions"
-                    ofType="com.gdut.software.entity.WrongQuestions" column="id"
-                    select="com.gdut.software.mapper.WrongQuestionsMapper.selectQuestionsBySid" />
+        <collection property="AnsweredQuestion"
+                    ofType="com.gdut.software.entity.AnsweredQuestion" column="id"
+                    select="com.gdut.software.mapper.AnsweredQuestionMapper.selectQuestionsBySid" />
     </resultMap>
 
     <!-- 添加一个学生 -->

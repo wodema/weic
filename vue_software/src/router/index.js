@@ -1,26 +1,28 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 import WrongQuestion from '../components/WrongQuestion.vue'
 import Analyse from '../components/Analyse.vue'
+import Question from "@/components/Question";
+
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Question',
-    component: WrongQuestion
-  },
-  {
     path: '/question',
     name: 'Question',
+    component: Question
+  },
+  {
+    path: '/wrongQuestion',
+    name: 'WrongQuestion',
     component: WrongQuestion
   },
   {
     path: '/analyse',
     name: 'Analyse',
     component: Analyse
-  }
+  },
+
 ]
 
 const router = new VueRouter({
